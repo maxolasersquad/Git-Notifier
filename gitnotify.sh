@@ -28,7 +28,7 @@ while true; do
   for GN_REPO in $GN_REPOS; do
     if [[ -d ~/.gitnotify/$GN_REPO ]]; then
       cd ~/.gitnotify/$GN_REPO
-      git pull --all
+      git fetch
       GN_GITSHOW=`git show --pretty=$GN_PRETTY`
       if [ "${GN_LASTSHOW[$GN_REPO]}" != "$GN_GITSHOW" ]; then
         notify-send -i gtk-dialog-info -t 300000 -- "Git Update - $GN_REPO" "$GN_GITSHOW"
