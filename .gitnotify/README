@@ -1,0 +1,13 @@
+LICENSE
+This code is licensed under GPLV3.  More licensing information to go here later.
+
+INSTALLATION INSTRUCTIONS
+Copy the .gitnotify directory to your $HOME directory.  In this folder run the following for each git repository you want gitnotify to notify you of:
+git -u clone <git_repository>
+
+Next, open up gitnotify.ini in your favorite text editor and list each repository, seperated by spaces.  Configure how often to check for updates, and the pretty-print style for displaying the notification.
+
+Now make the gitnotify.sh script executable, and place it wherever you would like to execute it from.  From here you can set it up to to run when you log in.
+
+NOTES
+This was developed on Ubuntu 10.04 Lucid.  It requires Ubuntu's notifier to work, and may be making other assumptions as well.
