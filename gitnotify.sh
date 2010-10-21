@@ -11,6 +11,8 @@ GN_REPOS=`cat $GN_INI_FILE | grep ^repos= | sed -u 's/repos=//g'`
 GN_DURATION=`cat $GN_INI_FILE | grep ^duration= | sed -u 's/duration=//g'`
 GN_PRETTY=`cat $GN_INI_FILE | grep ^pretty= | sed -u 's/pretty=//g'`
 
+declare -A GN_LASTSHOW
+
 #Initialize LASTSHOW array
 for GN_REPO in $GN_REPOS; do
   if [[ -d ~/.gitnotify/$GN_REPO ]] ; then
