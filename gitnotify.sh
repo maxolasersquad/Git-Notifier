@@ -35,7 +35,7 @@ while true; do
     else
       echo Unable to locate ~/.gitnotify/$GN_REPO repository >> ~/.gitnotify/log
       #Only keep the last thirty logs
-      tail -n 30 log > log
+      tail -n 30 ~/.gitnotify/log > ~/.gitnotify/log
     fi
   done
   sleep $GN_DURATION
