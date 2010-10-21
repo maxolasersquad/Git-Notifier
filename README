@@ -1,0 +1,8 @@
+LICENCE
+This code is licensed GPLV3.  More license information to go here later.
+
+INSTALLATION
+Place the .gitnotify directory in your home directory.  Please the gitnotify.sh script wherever you want to execute it from and make it executable.  Your $HOME directory or /bin may be preferrable.
+
+NOTES
+This is a work in progress and doesn't work quite right yet.  After I get this bash script working reasonably well, I hope to rewrite it in Python.  This was developed on Ubuntu 10.04 Lucid.  It requires libnotify and git already be installed, and may be making a few other assumptions as well. 
