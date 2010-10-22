@@ -13,7 +13,6 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Git-Notifier.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #Check that we have a ~/.gitnotify directory.  Make it if we don't
 if [[ ! -d ~/.gitnotify ]]; then
   mkdir ~/.gitnotify
@@ -31,7 +30,8 @@ declare -A GN_LASTSHOW
 for GN_REPO in $GN_REPOS; do
   if [[ -d ~/.gitnotify/$GN_REPO ]] ; then
     cd ~/.gitnotify/$GN_REPO
-    for $GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
+    for GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
+      git checkout $GN_BRANCH
       GN_LASTSHOW[${GN_REPO}_${GN_BRANCH}]=`git show --pretty=$GN_PRETTY`
     done
   else
@@ -44,7 +44,8 @@ while true; do
   for GN_REPO in $GN_REPOS; do
     if [[ -d ~/.gitnotify/$GN_REPO ]]; then
       cd ~/.gitnotify/$GN_REPO
-      for $GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
+      #Loop through all of the local branches in the repository
+      for GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
         git checkout $GN_BRANCH
         git fetch
         GN_GITSHOW=`git show --pretty=$GN_PRETTY`
