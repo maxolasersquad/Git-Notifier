@@ -1,5 +1,17 @@
 LICENSE
-This code is licensed under GPLV3.  More licensing information to go here later.
+    This file is part of Git-Notifier.
+
+    Git-Notifier is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License.
+
+    Git-Notifier is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Git-Notifier.  If not, see <http://www.gnu.org/licenses/>.
 
 INSTALLATION INSTRUCTIONS
 Copy the .gitnotify directory to your $HOME directory.  In this folder run the following for each git repository you want gitnotify to notify you of:

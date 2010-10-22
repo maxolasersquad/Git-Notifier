@@ -1,4 +1,18 @@
 #!/bin/bash
+#   This file is part of Git-Notifier.
+#
+#   Git-Notifier is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License.
+#
+#   Git-Notifier is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with Git-Notifier.  If not, see <http://www.gnu.org/licenses/>.
+
 
 #Check that we have a ~/.gitnotify directory.  Make it if we don't
 if [[ ! -d ~/.gitnotify ]]; then
@@ -29,8 +43,8 @@ done
 while true; do
   for GN_REPO in $GN_REPOS; do
     if [[ -d ~/.gitnotify/$GN_REPO ]]; then
+      cd ~/.gitnotify/$GN_REPO
       for $GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
-        cd ~/.gitnotify/$GN_REPO
         git checkout $GN_BRANCH
         git fetch
         GN_GITSHOW=`git show --pretty=$GN_PRETTY`
