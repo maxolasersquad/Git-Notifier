@@ -30,14 +30,15 @@ declare -A GN_LASTSHOW
 for GN_REPO in $GN_REPOS; do
   if [[ -d ~/.gitnotify/$GN_REPO ]] ; then
     cd ~/.gitnotify/$GN_REPO
-    for GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
-      git checkout $GN_BRANCH
-      GN_LASTSHOW[${GN_REPO}_${GN_BRANCH}]=`git show --pretty=$GN_PRETTY`
+    for GN_BRANCH in `git branch -a | grep / | sed 's/ -> .*//'`; do
+      GN_LASTSHOW[${GN_REPO}_${GN_BRANCH}]=`git show $GN_BRANCH --pretty=$GN_PRETTY`
     done
   else
     echo Unable to locate ~/.gitnotify/$GN_REPO repository >> ~/.gitnotify/log
   fi
 done
+
+git fetch
 
 #Check for updates and notify when necessary
 while true; do
@@ -45,17 +46,15 @@ while true; do
     if [[ -d ~/.gitnotify/$GN_REPO ]]; then
       cd ~/.gitnotify/$GN_REPO
       #Loop through all of the local branches in the repository
-      for GN_BRANCH in `git branch -a | sed 's/[ \*]*//' | grep -v ^remotes\/`; do
-        git checkout $GN_BRANCH
-        git fetch
-        GN_GITSHOW=`git show --pretty=$GN_PRETTY`
+      for GN_BRANCH in `git branch -a | grep / | sed 's/ -> .*//'`; do
+        GN_GITSHOW=`git show $GN_BRANCH --pretty=$GN_PRETTY`
         if [ "${GN_LASTSHOW[$GN_REPO_$GN_BRANCH]}" != "$GN_GITSHOW" ]; then
           notify-send -i gtk-dialog-info -t 300000 -- "Git Update - $GN_REPO" "$GN_GITSHOW"
         fi
         GN_LASTSHOW[$GN_REPO_$GN_BRANCH]=$GN_GITSHOW
       done
     else
-      echo Unable to locate ~/.gitnotify/$GN_REPO repository >> ~/.gitnotify/log
+      echo Unable to locate ~/.gitnotify/$GN_REPO repository.  Please update ~/.gitnotify/gitnotify.ini >> ~/.gitnotify/log
       #Only keep the last thirty logs
       tail -n 30 ~/.gitnotify/log > ~/.gitnotify/log
     fi
