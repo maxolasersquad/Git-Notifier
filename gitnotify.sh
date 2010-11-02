@@ -46,6 +46,7 @@ while true; do
   for GN_REPO in $GN_REPOS; do
     if [[ -d ~/.gitnotify/$GN_REPO ]]; then
       cd ~/.gitnotify/$GN_REPO
+      git fetch
       #Loop through all of the local branches in the repository
       for GN_BRANCH in `git branch -a | grep remotes/ | sed 's/ -> .*//' | sed 's/^  //'`; do
         GN_GITSHOW=`git show $GN_BRANCH --pretty=$GN_PRETTY`
