@@ -30,8 +30,9 @@ declare -A GN_LASTSHOW
 for GN_REPO in $GN_REPOS; do
   if [[ -d ~/.gitnotify/$GN_REPO ]] ; then
     cd ~/.gitnotify/$GN_REPO
-    for GN_BRANCH in `git branch -a | grep / | sed 's/ -> .*//'`; do
-      GN_LASTSHOW[${GN_REPO}_${GN_BRANCH}]=`git show $GN_BRANCH --pretty=$GN_PRETTY`
+    for GN_BRANCH in `git branch -a | grep remotes/ | sed 's/ -> .*//' | sed 's/^  //'`; do
+      GN_BRANCH_ARRAY=`echo ${GN_BRANCH} | sed 's/\//_/g'`
+      GN_LASTSHOW[${GN_REPO}_${GN_BRANCH_ARRAY}]=`git show $GN_BRANCH --pretty=$GN_PRETTY`
     done
   else
     echo Unable to locate ~/.gitnotify/$GN_REPO repository >> ~/.gitnotify/log
@@ -46,9 +47,10 @@ while true; do
     if [[ -d ~/.gitnotify/$GN_REPO ]]; then
       cd ~/.gitnotify/$GN_REPO
       #Loop through all of the local branches in the repository
-      for GN_BRANCH in `git branch -a | grep / | sed 's/ -> .*//'`; do
+      for GN_BRANCH in `git branch -a | grep remotes/ | sed 's/ -> .*//' | sed 's/^  //'`; do
         GN_GITSHOW=`git show $GN_BRANCH --pretty=$GN_PRETTY`
-        if [ "${GN_LASTSHOW[$GN_REPO_$GN_BRANCH]}" != "$GN_GITSHOW" ]; then
+        GN_BRANCH_ARRAY=`echo ${GN_BRANCH} | sed 's/\//_/g'`
+        if [ "${GN_LASTSHOW[${GN_REPO}_${GN_BRANCH_ARRAY}]}" != "$GN_GITSHOW" ]; then
           notify-send -i gtk-dialog-info -t 300000 -- "Git Update - $GN_REPO" "$GN_GITSHOW"
         fi
         GN_LASTSHOW[$GN_REPO_$GN_BRANCH]=$GN_GITSHOW
