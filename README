@@ -14,6 +14,8 @@ LICENSE
     along with Git-Notifier.  If not, see <http://www.gnu.org/licenses/>.
 
 INSTALLATION INSTRUCTIONS
+To make sure you have the required programs, run the following in Ubuntu.
+sudo aptitude install git libnotify-bin
 Copy the .gitnotify directory to your $HOME directory.  In this folder run the following for each git repository you want gitnotify to notify you of:
 git clone -n <git_repository>
 
@@ -22,4 +24,4 @@ Next, open up gitnotify.ini in your favorite text editor and list each repositor
 Now make the gitnotify.sh script executable, and place it wherever you would like to execute it from.  From here you can set it up to to run when you log in.
 
 NOTES
-This was developed on Ubuntu 10.04 Lucid.  It requires Ubuntu's notifier to work, and may be making other assumptions as well.
+This was developed on Ubuntu 10.04 Lucid.  It requires Ubuntu's notifier to work, and may be making other assumptions as well.  If you notice something missing, file a bug report in github.  The official place to get the latest code is at http://github.com/maxolasersquad/Git-Notifier
